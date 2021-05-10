@@ -1,6 +1,7 @@
 import {User} from '../models/User'
 import {hash} from 'bcryptjs'
 import {getRepository} from 'typeorm'
+import {v4 as uuid} from 'uuid'
 
 interface UserData{
     name: string
@@ -21,12 +22,17 @@ class CreateUserService{
         const hashPassword = await hash(password, 8)
 
         const user = {
+            id: uuid(),
             name,
             email,
             password: hashPassword
         }
 
-        await usersRepository.save(user)
+        try{
+            await usersRepository.save(user)
+        }catch(exception){
+            console.log(exception)
+        }
 
         return user
 

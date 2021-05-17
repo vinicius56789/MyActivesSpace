@@ -11,10 +11,14 @@ const courseUnitController = new CourseUnitController()
 const authenticateController = new AuthenticateController()
 const routes = Router()
 
-routes.post('/user', userController.create)
 routes.get('/user', authenticated, userController.show)
+routes.get('/activy', authenticated, activyController.show)
+routes.get('/courseunit', authenticated, courseUnitController.show)
+
+routes.post('/user', userController.create)
 routes.post('/activy', activyController.create)
 routes.post('courseunit', authenticated, courseUnitController.create)
+
 routes.post('/auth', authenticated ,authenticateController.create)
 
 export default routes

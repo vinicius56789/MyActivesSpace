@@ -1,5 +1,6 @@
 import {Request, Response} from 'express'
 import { CreateCourseUnitService } from '../services/CreateCourseUnitService'
+import { GetCourseUnitService } from '../services/GetCourseUnitService'
 
 class CourseUnitController{
 
@@ -7,6 +8,13 @@ class CourseUnitController{
         const courseUnitData = request.body
         const createCourseUnit = new CreateCourseUnitService()
         const courseUnit = await createCourseUnit.execute(courseUnitData)
+        return response.json(courseUnit)
+    }
+
+    async show(request: Request, response: Response){
+        const userId = request.body.user;
+        const getCourseUnit = new GetCourseUnitService()
+        const courseUnit = await getCourseUnit.execute(userId)
         return response.json(courseUnit)
     }
 }

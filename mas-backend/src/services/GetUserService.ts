@@ -2,7 +2,7 @@ import { getRepository } from "typeorm";
 import { User } from "../models/User";
 
 interface UserData{
-    id?: string 
+    id: string 
 }
 
 class GetUserService{

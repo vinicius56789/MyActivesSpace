@@ -1,32 +1,31 @@
-import {getRepository} from 'typeorm'
-import {Activy} from '../models/Activy'
-import { CourseUnit } from '../models/CourseUnit'
+import {getRepository} from 'typeorm';
+import {Activy} from '../models/Activy';
 
-interface ActivyData{
-    name: string
-    activy_date: string
-    course_unit: CourseUnit
+interface ActivyData {
+    name: string;
+    activy_date: string;
+    grade: number;
+    courseUnitId: string;
 }
 
 class CreateActivyService {
 
-    public async execute({name, activy_date, course_unit} : ActivyData) {
-        const activyRepository = getRepository(Activy)
-        const checkActivyExists = await activyRepository.findOne({name})
+    async execute({name,activy_date,grade, courseUnitId}:ActivyData) {
 
-        if(checkActivyExists){
-            throw new Error('Já existe atividade com esse nome')
-        }
+        const activyRepository = getRepository(Activy);
+
         const activy = activyRepository.create({
-            course_unit,
             name,
-            activy_date
-        })
+            activy_date,
+            grade,
+            courseUnitId
+        });
 
-        await activyRepository.save(activy)
+        await activyRepository.save(activy);
 
-        return activy
+        return activy;
+
     }
 }
 
-export {CreateActivyService}
+export {CreateActivyService};
